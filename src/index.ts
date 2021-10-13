@@ -3,9 +3,14 @@
  * 
  * https://www.youtube.com/watch?v=ICYLOZuFMz8
  */
+
+// import '../styles/main.css';
+import '../assets/main.css';
+
 import { LitElement, html, customElement, css, property, TemplateResult } from 'lit-element';
 import { env } from './environment/environment';
 import { add, substract } from './math';
+
 // import debug from 'debug';
 // import FlowTool from './controls/FlowTool';
 
