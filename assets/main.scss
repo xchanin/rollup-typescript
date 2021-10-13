@@ -1,0 +1,18 @@
+
+    $color-heading: #111;
+    $color-text: #444;
+    $color-gradient-start: #efefff;
+    $color-lightness: #fff;
+    $font-family: sans-serif;
+
+
+body, * {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    padding: 2rem;
+    color: $color-text;
+    font-family: $font-family;
+}

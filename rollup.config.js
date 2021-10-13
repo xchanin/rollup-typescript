@@ -1,4 +1,15 @@
 /**
+ * Bundle style files
+ */
+import postcss from 'rollup-plugin-postcss';
+
+// import sass from 'rollup-plugin-sass';
+
+// import scss from 'rollup-plugin-scss'
+
+import autoprefixer from 'autoprefixer'
+
+/**
  * transpile newer JS code for older JS browsers
  */
 import babel from 'rollup-plugin-babel'; 
@@ -41,10 +52,34 @@ import { terser } from 'rollup-plugin-terser';
  */
 import json from '@rollup/plugin-json';
 
+// PostCSS plugins
+/**
+ * Allow Sass-Style variables
+ */
+import simplevars from 'postcss-simple-vars';
+
+/**
+ * Allows rules to be nested
+ */
+import nested from 'postcss-nested';
+
+/**
+ * Bundle of plugins that enables the most
+ * current CSS syntax
+ */
+import cssnext from 'postcss-cssnext';
+
+/**
+ * Compresses and minifies CSS output, what UglifyJS is to JavaScript
+ */
+import cssnano from 'cssnano';
+
+import path from 'path'
+
 /**
  * Minify generated bundle
  */
-import uglify from 'rollup-plugin-uglify';
+// import uglify from 'rollup-plugin-uglify';
 
 
 // import typescript from 'rollup-plugin-typescript2';
@@ -81,6 +116,22 @@ export default merge(baseConfig,
       sourceMap: true
     },
     plugins: [
+      copy({
+        targets: [{ src: 'assets/**/*', dest: './dist/assets' }], // copy everything from assets folder
+        flatten: false, // set flatten to false to preserve folder structure
+      }),
+      postcss({
+        minimize: true,
+        extract: path.resolve('dist/assets/main.css'),
+        plugins: [
+          autoprefixer(),
+          simplevars(),
+          nested(),
+          cssnext({ warnForDuplicates: false, }),
+          cssnano(),
+        ],
+        extensions: ['.css']
+      }), 
       resolve({
         jsnext: true, // packages trying to ease the transition to newer JS
         main: true, // looks for the main file
@@ -97,10 +148,12 @@ export default merge(baseConfig,
       terser(),
       commonjs(),
       json(),
-      copy({
-        targets: [{ src: 'assets/**/*', dest: './dist' }], // copy everything from assets folder
-        flatten: false, // set flatten to false to preserve folder structure
-      }),
+      // scss(),
+    //   sass({
+    //     processor: css => postcss([autoprefixer({/**options here */})])
+    //         .process(css)
+    //         .then(result => result.css)
+    // })
       // eslint({
       //   exclude: [
       //     'src/styles/**'
