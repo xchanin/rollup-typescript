@@ -7,7 +7,7 @@ import postcss from 'rollup-plugin-postcss';
 
 // import scss from 'rollup-plugin-scss'
 
-import autoprefixer from 'autoprefixer'
+import autoprefixer from 'autoprefixer';
 
 /**
  * transpile newer JS code for older JS browsers
@@ -74,7 +74,7 @@ import cssnext from 'postcss-cssnext';
  */
 import cssnano from 'cssnano';
 
-import path from 'path'
+import path from 'path';
 
 /**
  * Minify generated bundle
@@ -82,13 +82,13 @@ import path from 'path'
 // import uglify from 'rollup-plugin-uglify';
 
 
-// import typescript from 'rollup-plugin-typescript2';
+import typescript from 'rollup-plugin-typescript2';
 
 // import pkg from './package.json';
 // import { eslint } from 'rollup-plugin-eslint';
 
 // const inputClass = 'src/index.ts';
-const inputHTML = './index.html';
+// const inputHTML = './index.html';
 
 // const typescriptPluginArgs = {
 //   typescript: require('typescript'),
@@ -111,13 +111,11 @@ export default merge(baseConfig,
     /**
      * any <script type="module"> inside will be bundled by rollup
      */
-    input: inputHTML,
-    output: {
-      sourceMap: true
-    },
+    input: './index.html',
     plugins: [
+      typescript(),
       copy({
-        targets: [{ src: 'assets/**/*', dest: './dist/assets' }], // copy everything from assets folder
+        targets: [{ src: 'src/assets/**/*', dest: './dist/src/assets' }], // copy everything from assets folder
         flatten: false, // set flatten to false to preserve folder structure
       }),
       postcss({
@@ -133,8 +131,8 @@ export default merge(baseConfig,
         extensions: ['.css']
       }), 
       resolve({
-        jsnext: true, // packages trying to ease the transition to newer JS
-        main: true, // looks for the main file
+        // jsnext: true, // packages trying to ease the transition to newer JS
+        // main: true, // looks for the main file
         browser: true, // compile for the browser
       }),
       babel({

@@ -5,7 +5,7 @@
  */
 
 // import '../styles/main.css';
-import '../assets/main.css';
+import 'src/assets/main.css';
 
 import { LitElement, html, customElement, css, property, TemplateResult } from 'lit-element';
 import { env } from './environment/environment';
@@ -36,7 +36,7 @@ export class CompMain extends LitElement {
         this.Message = '';
         this.Count = 0;
 
-        console.log(`${x} + ${y} = ${add(x, y)}`)
+        console.log(`${x} + ${y} = ${add(x, y)}`);
         console.log(`${x} - ${y} = ${substract(x, y)}`);
 
         this.addEventListener('click', async (e) => {
@@ -48,7 +48,7 @@ export class CompMain extends LitElement {
              */
             await this.updateComplete;
             this.dispatchEvent(new CustomEvent('count', {detail: {count: this.Count}}));
-        })
+        });
     }
     
     static styles = css`
